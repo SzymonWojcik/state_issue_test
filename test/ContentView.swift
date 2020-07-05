@@ -9,8 +9,17 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var store: AppStore
+    
     var body: some View {
-        Text("Hello, World!")
+        TestView()
+            .environmentObject(
+                self.store.derived(
+                deriveState: \.sessionState,
+                deriveAction: AppAction.session,
+                deriveEnvironment: { _ in SessionEnvironment() }
+            )
+        )
     }
 }
 
